@@ -2,7 +2,9 @@
 
 pragma solidity ^0.8.20;
 
-contract Whippin {
+import "./MWhippin.sol";
+
+contract Whippin is MWhippin {
 	event ArtistRegistered(address indexed artist, string mainName, uint32 registeredAt);
 
 	struct WhippinDetails {
@@ -45,6 +47,7 @@ contract Whippin {
 		ArtistType[] extra_types;
 		bytes[] genres;
 		bytes32[] assets;
+		address NFTFactory;
 	}
 
 	struct Artist {
@@ -77,7 +80,8 @@ contract Whippin {
 					main_type: _mainType,
 					extra_types: _extraTypes,
 					genres: _genres,
-					assets: _assets
+					assets: _assets,
+					NFTFactory: ADD_0
 				})
 			})
 		);
