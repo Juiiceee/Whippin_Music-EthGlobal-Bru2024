@@ -7,7 +7,7 @@ import Web3 from "web3";
 const clientId = "BPGFQ_lbwOCWolj8UpsOmsDgRTaVhjxR0Bw9MtLSI0UjOKvc1r_pU2jx52s6jW30ivB57iZVAm3HqbsHxdiUQik"; // Remplacez par votre client ID Web3Auth
 
 const chainConfig = {
-  chainId: "0xaa36a7", // Please use 0x1 for Mainnet
+  chainId: "0xaa36a7", 
   rpcTarget: "https://eth-sepolia.api.onfinality.io/public",
   chainNamespace: CHAIN_NAMESPACES.EIP155,
   displayName: "Ethereum sEPOLIA",

@@ -57,7 +57,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ songId }) => {
       toast.error(error.message);
     } else {
       setIsLiked(true);
-      toast.success("Song liked successfully!");
+      toast.success("Song license obtained!");
     }
 
     router.refresh();

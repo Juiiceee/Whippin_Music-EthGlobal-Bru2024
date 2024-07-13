@@ -11,7 +11,7 @@ import SidebarItem from "./SidebarItem"
 import Library from "./Library"
 import { Song } from "@/types"
 import usePlayer from "@/hooks/usePlayer"
-import { FaUserEdit } from "react-icons/fa"
+import { FaMusic, FaUserEdit } from "react-icons/fa"
 
 interface SidebarProps {
   children: React.ReactNode
@@ -27,7 +27,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children, songs }) => {
       {
         icon: HiHome,
         label: "Home",
-        active: pathname !== "/search",
+        active: pathname === "/",
         href: "/",
       },
       {
@@ -42,9 +42,15 @@ const Sidebar: React.FC<SidebarProps> = ({ children, songs }) => {
         active: pathname === '/register-artist',
         href: '/register-artist',
       },
+      {
+        icon: FaMusic,
+        label: 'Register Music',
+        active: pathname === '/register-music',
+        href: '/register-music',
+      },
       // eslint-disable-next-line react-hooks/exhaustive-deps
     ],
-    [],
+    [pathname], 
   )
 
   return (

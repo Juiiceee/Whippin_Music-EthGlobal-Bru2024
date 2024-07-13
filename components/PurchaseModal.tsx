@@ -5,7 +5,6 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "react-hot-toast";
 
 import Modal from "./Modal";
-import Input from "./Input";
 import Button from "./Button";
 import usePurchaseModal from "@/hooks/usePurchaseModal";
 import { useUser } from "@/hooks/useUser";
@@ -19,11 +18,7 @@ const PurchaseModal: React.FC<PurchaseModalProps> = ({ songId, onSuccess }) => {
   const purchaseModal = usePurchaseModal();
   const { user } = useUser();
 
-  const { register, handleSubmit, reset } = useForm({
-    defaultValues: {
-      licenseCount: 1,
-    },
-  });
+  const { handleSubmit, reset } = useForm();
 
   const onChange = (open: boolean) => {
     if (!open) {
@@ -32,12 +27,15 @@ const PurchaseModal: React.FC<PurchaseModalProps> = ({ songId, onSuccess }) => {
     }
   };
 
-  const onSubmit: SubmitHandler<any> = async (values) => {
+  const onSubmit: SubmitHandler<any> = async () => {
     try {
-      // Simulate license purchase process integrate HERE
+      // Fixed license count to 1
+      const licenseCount = 1;
+
+      // Simulate license purchase process
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      onSuccess(); // Call the onSuccess callback after successful submission integrate HERE
+      onSuccess(); // Call the onSuccess callback after successful submission
 
       purchaseModal.onClose();
       toast.success("License purchased successfully!");
@@ -49,18 +47,12 @@ const PurchaseModal: React.FC<PurchaseModalProps> = ({ songId, onSuccess }) => {
   return (
     <Modal
       title="Purchase License"
-      description="Please enter the number of licenses you want to purchase."
+      description="You are about to purchase a license for this song."
       isOpen={purchaseModal.isOpen}
       onChange={onChange}
     >
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-4">
-        <Input
-          id="licenseCount"
-          type="number"
-          {...register("licenseCount", { required: true, min: 1 })}
-          placeholder="Number of licenses"
-        />
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Purchase License for 0.01 ETH</Button>
       </form>
     </Modal>
   );
