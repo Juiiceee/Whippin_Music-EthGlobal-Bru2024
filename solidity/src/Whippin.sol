@@ -30,18 +30,15 @@ contract Whippin is MWhippin {
 
     mapping(address => ArtistData) public addressToArtistData;
 
-    function registerArtists(
-        string memory _mainName,
-        ArtistType _mainType
-    ) external {
+    function registerArtists(string memory _mainName, ArtistType _mainType) external {
         setAddressToArtist(
-			ArtistData({
-                    owner: msg.sender,
-                    registered_at: uint32(block.timestamp),
-                    main_name: _mainName,
-                    main_type: _mainType,
-                    NFTFactory: ADD_0
-                })
+            ArtistData({
+                owner: msg.sender,
+                registered_at: uint32(block.timestamp),
+                main_name: _mainName,
+                main_type: _mainType,
+                NFTFactory: ADD_0
+            })
         );
         emit ArtistRegistered(msg.sender, _mainName, addressToArtistData[msg.sender].registered_at);
     }
@@ -50,7 +47,7 @@ contract Whippin is MWhippin {
         addressToArtistData[msg.sender] = _ArtistData;
     }
 
-	function setFactoryAddress(address _factoryAddress) external onlyNot0address(_factoryAddress) {
-		addressToArtistData[msg.sender].NFTFactory = _factoryAddress;
-	}
+    function setFactoryAddress(address _factoryAddress) external onlyNot0address(_factoryAddress) {
+        addressToArtistData[msg.sender].NFTFactory = _factoryAddress;
+    }
 }
