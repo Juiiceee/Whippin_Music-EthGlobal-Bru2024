@@ -1,30 +1,32 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { AiOutlineHeart, AiFillHeart } from "react-icons/ai"
-import { useRouter } from "next/navigation"
-import { toast } from "react-hot-toast"
-import { useSessionContext } from "@supabase/auth-helpers-react"
-import { FaEthereum } from "react-icons/fa"; 
+import { useEffect, useState } from "react";
+import { FaEthereum } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast";
+import { useSessionContext } from "@supabase/auth-helpers-react";
 
-import { useUser } from "@/hooks/useUser"
-import useAuthModal from "@/hooks/useAuthModal"
+import { useUser } from "@/hooks/useUser";
+import useAuthModal from "@/hooks/useAuthModal";
+import usePurchaseModal from "@/hooks/usePurchaseModal";
+import PurchaseModal from "./PurchaseModal"; 
 
 interface LikeButtonProps {
-  songId: string
+  songId: string;
 }
 
 const LikeButton: React.FC<LikeButtonProps> = ({ songId }) => {
-  const router = useRouter()
-  const { supabaseClient } = useSessionContext()
-  const authModal = useAuthModal()
-  const { user } = useUser()
+  const router = useRouter();
+  const { supabaseClient } = useSessionContext();
+  const authModal = useAuthModal();
+  const purchaseModal = usePurchaseModal();
+  const { user } = useUser();
 
-  const [isLiked, setIsLiked] = useState<boolean>(false)
+  const [isLiked, setIsLiked] = useState<boolean>(false);
 
   useEffect(() => {
     if (!user?.id) {
-      return
+      return;
     }
 
     const fetchData = async () => {
@@ -33,59 +35,70 @@ const LikeButton: React.FC<LikeButtonProps> = ({ songId }) => {
         .select("*")
         .eq("user_id", user.id)
         .eq("song_id", songId)
-        .single()
+        .single();
 
       if (!error && data) {
-        setIsLiked(true)
+        setIsLiked(true);
       }
+    };
+
+    fetchData();
+  }, [songId, supabaseClient, user?.id]);
+
+  const Icon = FaEthereum;
+
+  const handlePurchaseSuccess = async () => {
+    const { error } = await supabaseClient.from("liked_songs").insert({
+      song_id: songId,
+      user_id: user.id,
+    });
+
+    if (error) {
+      toast.error(error.message);
+    } else {
+      setIsLiked(true);
+      toast.success("Song liked successfully!");
     }
 
-    fetchData()
-  }, [songId, supabaseClient, user?.id])
+    router.refresh();
+  };
 
-  const Icon = isLiked ? FaEthereum : FaEthereum; 
-
-  const handleLike = async () => {
+  const handleLike = () => {
     if (!user) {
-      return authModal.onOpen()
+      return authModal.onOpen();
     }
 
     if (isLiked) {
-      const { error } = await supabaseClient.from("liked_songs").delete().eq("user_id", user.id).eq("song_id", songId)
-
-      if (error) {
-        toast.error(error.message)
-      } else {
-        setIsLiked(false)
-      }
+      supabaseClient
+        .from("liked_songs")
+        .delete()
+        .eq("user_id", user.id)
+        .eq("song_id", songId)
+        .then(({ error }) => {
+          if (error) {
+            toast.error(error.message);
+          } else {
+            setIsLiked(false);
+          }
+        });
     } else {
-      const { error } = await supabaseClient.from("liked_songs").insert({
-        song_id: songId,
-        user_id: user.id,
-      })
-
-      if (error) {
-        toast.error(error.message)
-      } else {
-        setIsLiked(true)
-        toast.success("Success")
-      }
+      purchaseModal.onOpen();
     }
-
-    router.refresh()
-  }
+  };
 
   return (
-    <button
-      className="
-        cursor-pointer 
-        hover:opacity-75 
-        transition
-      "
-      onClick={handleLike}>
-      <Icon color={isLiked ? "#22c55e" : "white"} size={25} />
-    </button>
-  )
-}
+    <>
+      <button
+        className="cursor-pointer hover:opacity-75 transition"
+        onClick={handleLike}
+      >
+        <Icon color={isLiked ? "#22c55e" : "white"} size={25} />
+      </button>
+      {purchaseModal.isOpen && (
+        <PurchaseModal songId={songId} onSuccess={handlePurchaseSuccess} />
+      )}
+    </>
+  );
+};
 
-export default LikeButton
+export default LikeButton;
