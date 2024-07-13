@@ -6,7 +6,7 @@ import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Input from "./Input";
 import Button from "./Button";
-import { supabase } from "@/utils/supabaseClient";
+import { supabaseClient  } from "@/utils/supabaseClient";
 
 interface ArtistRegistrationFormProps {}
 
@@ -28,11 +28,11 @@ const ArtistRegistrationForm: React.FC<ArtistRegistrationFormProps> = () => {
 
   const onSubmit: SubmitHandler<FormValues> = async (values) => {
     try {
-      // Simulate form submission process
+      // Simulate form submission process integrate HERE
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      // Here you would make your API request to register the artist
-      const { error } = await supabase.from("artists").insert({
+      // Here you would make your API request to register the artist integrate HERE
+      const { error } = await supabaseClient.from("artists").insert({
         is_artist: values.isArtist,
         main_name: values.mainName,
         main_type: values.mainType,
