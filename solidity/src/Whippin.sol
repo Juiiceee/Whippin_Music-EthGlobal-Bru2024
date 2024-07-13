@@ -44,9 +44,6 @@ contract Whippin is MWhippin {
         uint32 registered_at;
         string main_name;
         ArtistType main_type;
-        ArtistType[] extra_types;
-        bytes[] genres;
-        bytes32[] assets;
         address NFTFactory;
     }
 
@@ -65,10 +62,7 @@ contract Whippin is MWhippin {
     function registerArtists(
         bool _isArtist,
         string memory _mainName,
-        ArtistType _mainType,
-        ArtistType[] memory _extraTypes,
-        bytes[] memory _genres,
-        bytes32[] memory _assets
+        ArtistType _mainType
     ) external {
         setAddressToArtist(
             Artist({
@@ -78,9 +72,6 @@ contract Whippin is MWhippin {
                     registered_at: uint32(block.timestamp),
                     main_name: _mainName,
                     main_type: _mainType,
-                    extra_types: _extraTypes,
-                    genres: _genres,
-                    assets: _assets,
                     NFTFactory: ADD_0
                 })
             })
