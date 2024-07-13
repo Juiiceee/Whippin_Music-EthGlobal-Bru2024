@@ -3,6 +3,7 @@
 pragma solidity ^0.8.20;
 
 import "./NFTWhippin.sol";
+import "./Whippin.sol";
 import "./MWhippin.sol";
 
 contract NFTFactoryWhippin is MWhippin {
@@ -47,4 +48,8 @@ contract NFTFactoryWhippin is MWhippin {
     function getBalance(NFTWhippin _NFTWhippin) external view returns (uint256) {
         return (address(_NFTWhippin).balance);
     }
+
+	function setAddNFTFactory(address _addWhippin) external {
+		Whippin(_addWhippin).setAddressFactory(msg.sender, address(this));
+	}
 }

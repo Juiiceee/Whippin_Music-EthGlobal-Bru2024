@@ -26,20 +26,19 @@ contract Whippin is MWhippin {
         uint32 registered_at;
         string main_name;
         ArtistType main_type;
-        NFTFactoryWhippin NFTFactory;
+        address NFTFactory;
     }
 
     mapping(address => ArtistData) public addressToArtistData;
 
     function registerArtists(string memory _mainName, ArtistType _mainType) external {
-        NFTFactoryWhippin nftFactory = new NFTFactoryWhippin();
 		setAddressToArtist(
             ArtistData({
                 owner: msg.sender,
                 registered_at: uint32(block.timestamp),
                 main_name: _mainName,
                 main_type: _mainType,
-                NFTFactory: nftFactory
+                NFTFactory: ADD_0
             })
         );
     }
@@ -47,4 +46,9 @@ contract Whippin is MWhippin {
     function setAddressToArtist(ArtistData memory _ArtistData) private {
         addressToArtistData[msg.sender] = _ArtistData;
     }
+
+    function setAddressFactory(address _msgSender, address _addNFTFactory) external {
+        addressToArtistData[_msgSender].NFTFactory = _addNFTFactory;
+    }
+
 }
