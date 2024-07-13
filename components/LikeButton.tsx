@@ -5,6 +5,7 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai"
 import { useRouter } from "next/navigation"
 import { toast } from "react-hot-toast"
 import { useSessionContext } from "@supabase/auth-helpers-react"
+import { FaEthereum } from "react-icons/fa"; 
 
 import { useUser } from "@/hooks/useUser"
 import useAuthModal from "@/hooks/useAuthModal"
@@ -42,7 +43,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ songId }) => {
     fetchData()
   }, [songId, supabaseClient, user?.id])
 
-  const Icon = isLiked ? AiFillHeart : AiOutlineHeart
+  const Icon = isLiked ? FaEthereum : FaEthereum; 
 
   const handleLike = async () => {
     if (!user) {

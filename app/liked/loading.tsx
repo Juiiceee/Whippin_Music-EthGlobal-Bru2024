@@ -6,7 +6,7 @@ import Box from "@/components/Box"
 export default function Loading() {
   return (
     <Box className="h-full flex justify-center items-center">
-      <BounceLoader color="#22c55e" size={40} />
+      <BounceLoader color="#7700ff" size={40} />
     </Box>
   )
 }

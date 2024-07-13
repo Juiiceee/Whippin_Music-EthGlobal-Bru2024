@@ -3,10 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"npm run server\" \"next dev\"",
+    "dev": "next dev",
     "build": "next build",
-    "start": "concurrently \"npm run server\" \"next start\"",
-    "server": "nodemon server.js",
+    "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
