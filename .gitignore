@@ -1,2 +1,4 @@
 .vscode
 test.html
+.deps
+state.json
