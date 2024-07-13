@@ -76,4 +76,8 @@ contract NFTWhippin is ERC721, Ownable, MWhippin, ERC721URIStorage {
 	function getURIToken() external view returns (string memory) {
 		return URIToken;
 	}
+
+	function getURL(uint _idNFT) external view returns (string memory) {
+		return idToURL[_idNFT];
+	}
 }

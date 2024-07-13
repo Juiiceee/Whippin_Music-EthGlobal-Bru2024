@@ -3,8 +3,9 @@
 pragma solidity ^0.8.20;
 
 import "./NFTWhippin.sol";
+import "./MWhippin.sol";
 
-contract NFTFactoryWhippin {
+contract NFTFactoryWhippin is MWhippin {
 	NFTWhippin[] public NFTContract;
 
 	function createNFTContract(
@@ -22,7 +23,7 @@ contract NFTFactoryWhippin {
 		_NFTWhippin.mintPayable{value: msg.value}(msg.sender);
 	}
 
-	function linkVideo(NFTWhippin _NFTWhippin, uint _idNFT, string memory _url) external {
+	function linkVideo(NFTWhippin _NFTWhippin, uint _idNFT, string memory _url) external onlyEmptyValue(_NFTWhippin.getURL(_idNFT)) {
 		_NFTWhippin.linkVideo(_idNFT, _url, msg.sender);
 	}
 
