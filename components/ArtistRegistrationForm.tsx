@@ -51,7 +51,7 @@ const ArtistRegistrationForm: React.FC<ArtistRegistrationFormProps> = () => {
   };
 
   return (
-    <div className="p-4 max-w-md mx-auto bg-neutral-800 rounded-md">
+    <div className="p-4 max-w-md mx-auto bg-neutral-900 rounded-md">
       <h1 className="text-2xl font-bold text-center mb-4">Artist Registration</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-4">
         <div>
