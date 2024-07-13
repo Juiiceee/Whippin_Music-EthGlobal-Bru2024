@@ -28,7 +28,7 @@ const AuthModal: React.FC = () => {
 
       <Auth
         supabaseClient={supabaseClient}
-        providers={["github"]}
+        providers={["google","discord","linkedin"]}
         redirectTo={getURL()}
         magicLink={true}
         appearance={{

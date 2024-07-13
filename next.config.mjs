@@ -1,8 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    domains: ['kgznrgbyewaxfgcznezy.supabase.co'],
+    
+  },
     images: {
-      domains: ['kgznrgbyewaxfgcznezy.supabase.co'],
-    },
+      domains: ['gateway.lighthouse.storage']
+    }
   };
-  
-  export default nextConfig;
+
+export default nextConfig;
