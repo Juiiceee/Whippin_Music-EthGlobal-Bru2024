@@ -37,7 +37,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children, songs }) => {
         href: "/search",
       },
       {
-        icon: FaUserEdit, // Correctly importing and using the icon
+        icon: FaUserEdit,
         label: 'Register Artist',
         active: pathname === '/register-artist',
         href: '/register-artist',
