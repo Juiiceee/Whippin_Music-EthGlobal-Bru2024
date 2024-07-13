@@ -1,10 +1,11 @@
 import ArtistRegistrationForm from "@/components/ArtistRegistrationForm";
-import Sidebar from "@/components/Sidebar";
+import Header from "@/components/Header"
+
 
 const RegisterArtistPage = () => {
   return (
-    <div className="flex h-screen">
-      <div className="flex-1 bg-neutral-800">
+    <div className="bg-neutral-900 rounded-lg w-full h-full overflow-hidden overflow-y-auto">
+      <div className="flex-1 bg-neutral-900 p-4 overflow-y-auto">
         <ArtistRegistrationForm />
       </div>
     </div>
@@ -12,3 +13,4 @@ const RegisterArtistPage = () => {
 };
 
 export default RegisterArtistPage;
+
