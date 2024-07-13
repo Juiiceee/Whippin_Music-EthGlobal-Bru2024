@@ -1,3 +1,4 @@
+// layout.tsx
 import "./globals.css"
 import { Figtree } from "next/font/google"
 
@@ -8,6 +9,7 @@ import ModalProvider from "@/providers/ModalProvider"
 import ToasterProvider from "@/providers/ToasterProvider"
 import getSongsByUserId from "@/actions/getSongsByUserId"
 import Player from "@/components/Player"
+import Header from "@/components/Header"
 
 const figtree = Figtree({ subsets: ["latin"] })
 
@@ -32,7 +34,7 @@ export default async function RootLayout({ children }: LayoutProps) {
           <UserProvider>
             <ModalProvider>
               <Sidebar songs={userSongs}>
-                {children}
+                  {children}
               </Sidebar>
               <Player />
             </ModalProvider>

@@ -1,7 +1,8 @@
+// header.tsx
 "use client"
 
-import React from 'react'
-import { useRouter } from 'next/navigation'  // Utilisez next/navigation au lieu de next/router
+import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { twMerge } from 'tailwind-merge'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { RxCaretLeft, RxCaretRight } from 'react-icons/rx'
@@ -14,6 +15,8 @@ import Button from './Button'
 import useAuthModal from '@/hooks/useAuthModal'
 import { useUser } from '@/hooks/useUser'
 import usePlayer from '@/hooks/usePlayer'
+import { initWeb3Auth, login, logout, getAccounts, getBalance, signMessage } from '@/app/Auth'
+import { IProvider } from "@web3auth/base"
 
 interface HeaderProps {
   children: React.ReactNode
@@ -21,27 +24,47 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ children, className }) => {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [provider, setProvider] = useState<IProvider | null>(null);
+  const [address, setAddress] = useState<string | null>(null);
+  const [balance, setBalance] = useState<string | null>(null);
+
   const player = usePlayer()
   const authModal = useAuthModal()
   const router = useRouter()
   const supabaseClient = useSupabaseClient()
   const { user } = useUser()
 
-  const handleLogout = async () => {
-    const { error } = await supabaseClient.auth.signOut()
-    player.reset()
-    router.refresh()  // Utilisez router.refresh() avec next/navigation
+  useEffect(() => {
+    const init = async () => {
+      await initWeb3Auth();
+    };
+    init();
+  }, []);
 
-    if (error) {
-      toast.error(error.message)
-    } else {
-      toast.success('Logged out!')
-    }
+  const handleLogout = async () => {
+    await logout();
+    setLoggedIn(false);
+    setProvider(null);
+    setAddress(null);
+    setBalance(null);
+    toast.success('Logged out!');
   }
 
-  const handleLoginClick = () => {
-    console.log('Login button clicked')
-    authModal.onOpen()
+  const handleLoginClick = async () => {
+    try {
+      const web3authProvider = await login();
+      if (web3authProvider) {
+        setProvider(web3authProvider);
+        setLoggedIn(true);
+        const accounts = await getAccounts(web3authProvider);
+        setAddress(accounts[0]);
+        const balance = await getBalance(web3authProvider);
+        setBalance(balance);
+      }
+    } catch (error) {
+      console.error('Login failed', error);
+    }
   }
 
   return (
@@ -91,6 +114,8 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
                   Log in
                 </Button>
               </div>
+              {address && <p>Connected as: {address}</p>}
+              {balance && <p>Balance: {balance} ETH</p>}
             </>
           )}
         </div>
