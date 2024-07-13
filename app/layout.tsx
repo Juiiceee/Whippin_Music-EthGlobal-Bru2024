@@ -12,8 +12,7 @@ import Player from "@/components/Player"
 const figtree = Figtree({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "Sample App",
-  description: "Listen to music!",
+  title: "Whippin Music App",
 }
 
 export const revalidate = 0
