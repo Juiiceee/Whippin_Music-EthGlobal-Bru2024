@@ -28,7 +28,7 @@ contract NFTFactoryWhippin is MWhippin {
 	}
 
 	function withdraw(NFTWhippin _NFTWhippin) external {
-		_NFTWhippin.withdraw();
+		_NFTWhippin.withdraw(msg.sender);
 	}
 
 	function getAll(NFTWhippin _NFTWhippin, uint _idNFT) external view returns (uint, string memory, string memory) {

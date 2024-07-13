@@ -49,8 +49,8 @@ contract NFTWhippin is ERC721, Ownable, MWhippin, ERC721URIStorage {
 		idToURL[_idNFT] = _url;
 	}
 
-	function withdraw() external onlyOwner {
-		payable(msg.sender).transfer(address(this).balance);
+	function withdraw(address _receiver) external onlyOwner {
+		payable(_receiver).transfer(address(this).balance);
 	}
 
 	function supportsInterface(
