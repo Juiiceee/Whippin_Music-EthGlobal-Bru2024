@@ -3,6 +3,7 @@
 pragma solidity ^0.8.20;
 
 import "./MWhippin.sol";
+import "./NFTFactoryWhippin.sol";
 
 contract Whippin is MWhippin {
     event ArtistRegistered(address indexed artist, string mainName, uint32 registeredAt);
@@ -31,13 +32,14 @@ contract Whippin is MWhippin {
     mapping(address => ArtistData) public addressToArtistData;
 
     function registerArtists(string memory _mainName, ArtistType _mainType) external {
-        setAddressToArtist(
+        NFTFactoryWhippin nftFactory = new NFTFactoryWhippin();
+		setAddressToArtist(
             ArtistData({
                 owner: msg.sender,
                 registered_at: uint32(block.timestamp),
                 main_name: _mainName,
                 main_type: _mainType,
-                NFTFactory: ADD_0
+                NFTFactory: address(nftFactory)
             })
         );
         emit ArtistRegistered(msg.sender, _mainName, addressToArtistData[msg.sender].registered_at);
@@ -45,9 +47,5 @@ contract Whippin is MWhippin {
 
     function setAddressToArtist(ArtistData memory _ArtistData) private {
         addressToArtistData[msg.sender] = _ArtistData;
-    }
-
-    function setFactoryAddress(address _factoryAddress) external onlyNot0address(_factoryAddress) {
-        addressToArtistData[msg.sender].NFTFactory = _factoryAddress;
     }
 }
