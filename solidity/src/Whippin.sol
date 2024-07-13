@@ -42,7 +42,6 @@ contract Whippin is MWhippin {
                 NFTFactory: address(nftFactory)
             })
         );
-        emit ArtistRegistered(msg.sender, _mainName, addressToArtistData[msg.sender].registered_at);
     }
 
     function setAddressToArtist(ArtistData memory _ArtistData) private {
