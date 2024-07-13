@@ -82,4 +82,8 @@ contract Whippin is MWhippin {
     function setAddressToArtist(Artist memory _artist) private {
         addressToArtist[msg.sender] = _artist;
     }
+
+	function setFactoryAddress(address _factoryAddress) external onlyNot0address(_factoryAddress) {
+		addressToArtist[msg.sender].data.NFTFactory = _factoryAddress;
+	}
 }
