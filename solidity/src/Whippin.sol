@@ -26,7 +26,7 @@ contract Whippin is MWhippin {
         uint32 registered_at;
         string main_name;
         ArtistType main_type;
-        address NFTFactory;
+        NFTFactoryWhippin NFTFactory;
     }
 
     mapping(address => ArtistData) public addressToArtistData;
@@ -39,7 +39,7 @@ contract Whippin is MWhippin {
                 registered_at: uint32(block.timestamp),
                 main_name: _mainName,
                 main_type: _mainType,
-                NFTFactory: address(nftFactory)
+                NFTFactory: nftFactory
             })
         );
     }
