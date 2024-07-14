@@ -3,3 +3,5 @@ test.html
 .deps
 state.json
 .env
+node_modules
+.next
