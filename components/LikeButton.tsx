@@ -92,7 +92,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ songId }) => {
         className="cursor-pointer hover:opacity-75 transition"
         onClick={handleLike}
       >
-        <Icon color={isLiked ? "#22c55e" : "white"} size={25} />
+        <Icon color={isLiked ? "#7700ff" : "white"} size={25} />
       </button>
       {purchaseModal.isOpen && (
         <PurchaseModal songId={songId} onSuccess={handlePurchaseSuccess} />
