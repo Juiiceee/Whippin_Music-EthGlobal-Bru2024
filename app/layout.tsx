@@ -1,6 +1,5 @@
 import "./globals.css";
 import { Figtree } from "next/font/google";
-
 import Sidebar from "../components/Sidebar";
 import SupabaseProvider from "@/providers/SupabaseProvider";
 import UserProvider from "@/providers/UserProvider";
