@@ -4,7 +4,7 @@ import { EthereumPrivateKeyProvider } from "@web3auth/ethereum-provider";
 import { Web3Auth } from "@web3auth/modal";
 import Web3 from "web3";
 
-const clientId = "BPGFQ_lbwOCWolj8UpsOmsDgRTaVhjxR0Bw9MtLSI0UjOKvc1r_pU2jx52s6jW30ivB57iZVAm3HqbsHxdiUQik"; // Remplacez par votre client ID Web3Auth
+const clientId = "BPGFQ_lbwOCWolj8UpsOmsDgRTaVhjxR0Bw9MtLSI0UjOKvc1r_pU2jx52s6jW30ivB57iZVAm3HqbsHxdiUQik";
 
 const chainConfig = {
   chainId: "0xaa36a7", 
